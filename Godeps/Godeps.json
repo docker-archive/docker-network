@@ -1,0 +1,11 @@
+{
+	"ImportPath": "github.com/docker/docker-network",
+	"GoVersion": "go1.4",
+	"Deps": [
+		{
+			"ImportPath": "github.com/codegangsta/cli",
+			"Comment": "1.2.0",
+			"Rev": "565493f259bf868adb54d45d5f4c68d405117adf"
+		}
+	]
+}
