@@ -1,9 +1,12 @@
 package main
 
 import (
+	"log"
 	"os"
+	"os/exec"
 
 	"github.com/docker/docker-network/Godeps/_workspace/src/github.com/codegangsta/cli"
+	"github.com/docker/docker-network/namespace"
 )
 
 var (
@@ -65,18 +68,49 @@ var (
 			{
 				Name:  "add",
 				Usage: "Add new network namespace",
+				Action: func(c *cli.Context) {
+					if _, err := namespace.New(c.Args().First()); err != nil {
+						log.Fatal(err)
+					}
+				},
 			},
 			{
 				Name:  "del",
 				Usage: "Delete network namespace",
+				Action: func(c *cli.Context) {
+					ns := &namespace.Namespace{Path: c.Args().First()}
+					if err := ns.Delete(); err != nil {
+						log.Fatal(err)
+					}
+				},
 			},
 			{
 				Name:  "join",
 				Usage: "Join endpoint to specified namespace (this can be docknet namespace or path)",
+				Action: func(c *cli.Context) {
+					ns := &namespace.Namespace{Path: c.Args().First()}
+					if err := ns.Join(); err != nil {
+						log.Fatal(err)
+					}
+				},
 			},
 			{
 				Name:  "exec",
 				Usage: "Execute command in namespace",
+				Action: func(c *cli.Context) {
+					ns := &namespace.Namespace{Path: c.Args().First()}
+					tail := c.Args().Tail()
+					if len(tail) == 0 {
+						log.Fatal("Not enough arguments to call exec")
+					}
+					cmd := exec.Command(tail[0], tail[1:]...)
+					cmd.Stdout = os.Stdout
+					cmd.Stderr = os.Stderr
+					cmd.Stdin = os.Stdin
+					if err := ns.Exec(cmd); err != nil {
+						log.Fatal(err)
+					}
+				},
 			},
 		},
 	}
