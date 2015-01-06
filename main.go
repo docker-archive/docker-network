@@ -63,7 +63,7 @@ var (
 		Subcommands: []cli.Command{
 			{
 				Name:  "list",
-				Usage: "List of network namespaces which belongs to docknet",
+				Usage: "List of network namespaces which belongs to docker-network",
 			},
 			{
 				Name:  "add",
@@ -86,7 +86,7 @@ var (
 			},
 			{
 				Name:  "join",
-				Usage: "Join endpoint to specified namespace (this can be docknet namespace or path)",
+				Usage: "Join endpoint to specified namespace (this can be docker-network namespace or path)",
 				Action: func(c *cli.Context) {
 					ns := &namespace.Namespace{Path: c.Args().First()}
 					if err := ns.Join(); err != nil {
@@ -118,7 +118,7 @@ var (
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "docknet"
+	app.Name = "docker-network"
 	app.Usage = "Create and manage networks"
 	app.Action = func(c *cli.Context) {
 		println(app.Usage)
