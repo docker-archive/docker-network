@@ -1,4 +1,3 @@
-// build +unix
 package namespace
 
 import (
