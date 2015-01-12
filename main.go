@@ -5,7 +5,7 @@ import (
 	"os"
 	"os/exec"
 
-	"github.com/docker/docker-network/Godeps/_workspace/src/github.com/codegangsta/cli"
+	"github.com/codegangsta/cli"
 	"github.com/docker/docker-network/namespace"
 )
 

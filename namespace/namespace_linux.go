@@ -6,7 +6,7 @@ import (
 	"os/exec"
 	"runtime"
 
-	syscall "github.com/docker/docker-network/Godeps/_workspace/src/golang.org/x/sys/unix"
+	syscall "golang.org/x/sys/unix"
 )
 
 // New creates new namespace at specified path
